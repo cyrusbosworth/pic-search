@@ -89,8 +89,10 @@ function PictureSearch(props) {
 	const saveImage = newImg => {
 		if (!savedImages.some(image => image.id === newImg.id)) {
 			setSavedImages(prevState => [newImg, ...prevState]);
+			setSBMessage({ message: 'Image has been saved', status: 'success' });
+			handleSBOpen();
 		} else {
-			setSBMessage({ message: 'Image has already been saved', status: 'error' });
+			setSBMessage({ message: 'Image has been already been saved', status: 'error' });
 			handleSBOpen();
 		}
 	};
