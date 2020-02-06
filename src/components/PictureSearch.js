@@ -78,23 +78,18 @@ function PictureSearch(props) {
 		setMobileOpen(!mobileOpen);
 	};
 
-	const handleSBOpen = () => {
-		setSBOpen(true);
-	};
-
-	const handleSBClose = () => {
-		setSBOpen(false);
+	const handleSBToggle = () => {
+		setSBOpen(!SBOpen);
 	};
 
 	const saveImage = newImg => {
 		if (!savedImages.some(image => image.id === newImg.id)) {
 			setSavedImages(prevState => [newImg, ...prevState]);
 			setSBMessage({ message: 'Image has been saved', status: 'success' });
-			handleSBOpen();
 		} else {
 			setSBMessage({ message: 'Image has been already been saved', status: 'error' });
-			handleSBOpen();
 		}
+		handleSBToggle();
 	};
 
 	const unSave = imgToDelete => {
@@ -172,8 +167,8 @@ function PictureSearch(props) {
 					horizontal: 'center'
 				}}
 				open={SBOpen}
-				autoHideDuration={2500}
-				onClose={handleSBClose}
+				autoHideDuration={3000}
+				onClose={handleSBToggle}
 			>
 				<Alert severity={SBmessage.status}>{SBmessage.message}</Alert>
 			</Snackbar>

@@ -11,32 +11,6 @@ class Search extends Component {
 		apiKey: '14697498-6dbb7ed2f4df9223c3c4cf59c'
 	};
 
-	// onTextChange = e => {
-	// 	const val = e.target.value;
-	// 	this.setState(
-	// 		{
-	// 			[e.target.name]: val
-	// 		},
-	// 		() => {
-	// 			if (val === '') {
-	// 				this.props.searchResults([]);
-	// 			} else {
-	// 				axios
-	// 					.get(
-	// 						`${this.state.apiUrl}/?key=${this.state.apiKey}&q=${this.state.searchText}
-	//           &image_type=photo&per_page=${this.state.amount}&safesearch=true`
-	// 					)
-	// 					.then(res => this.props.searchResults(res.data.hits))
-	// 					.catch(err => console.log(err));
-	// 			}
-	// 		}
-	// 	);
-	// };
-
-	// onAmountChange = (e, index, value) => {
-	// 	this.setState({ amount: e.target.value });
-	// };
-
 	search = e => {
 		const val = e.target.value;
 		this.setState(
