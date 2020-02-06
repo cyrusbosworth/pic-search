@@ -1,1 +1,0 @@
-TODO fill in star on faving, prevent dupe favoritng
