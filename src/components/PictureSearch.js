@@ -14,6 +14,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Search from './search/Search';
 import ImageResults from './image-results/ImageResults';
 import SavedImages from './SavedImages';
+import { Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const drawerWidth = 240;
 
@@ -49,33 +51,48 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function PictureSearch(props) {
 	const classes = useStyles();
 	const theme = useTheme();
-	const [mobileOpen, setMobileOpen] = React.useState(false);
-	const [images, setImages] = React.useState([]);
 
 	let saved = localStorage.getItem('savedImages');
 	if (saved) {
 		saved = JSON.parse(saved);
 	}
 
+	const [mobileOpen, setMobileOpen] = React.useState(false);
+	const [images, setImages] = React.useState([]);
+	const [SBOpen, setSBOpen] = React.useState(false);
+	const [SBmessage, setSBMessage] = React.useState({});
 	const [savedImages, setSavedImages] = React.useState(saved || []);
 
 	React.useEffect(() => {
 		localStorage.setItem('savedImages', JSON.stringify(savedImages));
-	}, [savedImages.length]);
+	});
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
 
-	const searchResults = res => {
-		setImages(res);
+	const handleSBOpen = () => {
+		setSBOpen(true);
 	};
 
-	const saveImage = img => {
-		setSavedImages(prevState => [img, ...prevState]);
+	const handleSBClose = () => {
+		setSBOpen(false);
+	};
+
+	const saveImage = newImg => {
+		if (!savedImages.some(image => image.id === newImg.id)) {
+			setSavedImages(prevState => [newImg, ...prevState]);
+		} else {
+			setSBMessage({ message: 'Image has already been saved', status: 'error' });
+			handleSBOpen();
+		}
 	};
 
 	const unSave = imgToDelete => {
@@ -85,6 +102,7 @@ function PictureSearch(props) {
 			})
 		);
 	};
+
 	const drawer = (
 		<div>
 			<h3 style={{ textAlign: 'center' }}>Saved Images</h3>
@@ -143,9 +161,20 @@ function PictureSearch(props) {
 			</nav>
 			<main className={classes.content}>
 				<div className={classes.toolbar} />
-				<Search searchResults={searchResults} />
+				<Search searchResults={res => setImages(res)} />
 				{images.length > 0 ? <ImageResults images={images} saveImage={saveImage} /> : null}
 			</main>
+			<Snackbar
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'center'
+				}}
+				open={SBOpen}
+				autoHideDuration={2500}
+				onClose={handleSBClose}
+			>
+				<Alert severity={SBmessage.status}>{SBmessage.message}</Alert>
+			</Snackbar>
 		</div>
 	);
 }

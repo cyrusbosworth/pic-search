@@ -68,8 +68,6 @@ export default function SavedImages(props) {
 		imageListContent = null;
 	}
 
-	const actions = [<Button label="Close" primary={true} onClick={handleClose} />];
-
 	return (
 		<div>
 			{imageListContent}

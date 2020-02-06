@@ -14,7 +14,8 @@ import ZoomInIcon from '@material-ui/icons/ZoomIn';
 class ImageResults extends Component {
 	state = {
 		open: false,
-		currentImg: ''
+		currentImg: '',
+		sbOpen: false
 	};
 
 	getGridListCols = width => {
@@ -26,6 +27,14 @@ class ImageResults extends Component {
 
 	handleOpen = img => {
 		this.setState({ open: true, currentImg: img });
+	};
+
+	handleSBOpen = () => {
+		this.setState({ sbOpen: true });
+	};
+
+	handleSBClose = () => {
+		this.setState({ sbOpen: false });
 	};
 
 	saveImage = img => {
@@ -57,7 +66,12 @@ class ImageResults extends Component {
 								}
 								actionIcon={
 									<Fragment>
-										<IconButton onClick={() => this.handleOpen(img.largeImageURL)}>
+										<IconButton
+											onClick={() => {
+												this.handleOpen(img.largeImageURL);
+												console.log('Opened');
+											}}
+										>
 											<ZoomInIcon style={{ color: 'white' }} />
 										</IconButton>
 										<IconButton onClick={() => this.saveImage(img)}>

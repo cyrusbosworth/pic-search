@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { TextField, Select, MenuItem } from '@material-ui/core';
 
-import ImageResults from '../image-results/ImageResults';
 import axios from 'axios';
 
 class Search extends Component {
@@ -50,7 +49,7 @@ class Search extends Component {
 					fullWidth={true}
 				/>
 				<br />
-				<label for="amount">Amount: </label>
+				<label htmlFor="amount">Amount: </label>
 				<Select name="amount" value={this.state.amount} onChange={this.onAmountChange}>
 					<MenuItem value={5}>5</MenuItem>
 					<MenuItem value={10}>10</MenuItem>
