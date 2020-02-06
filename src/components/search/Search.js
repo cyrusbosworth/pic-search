@@ -11,9 +11,34 @@ class Search extends Component {
 		apiKey: '14697498-6dbb7ed2f4df9223c3c4cf59c'
 	};
 
-	onTextChange = e => {
-		const val = e.target.value;
+	// onTextChange = e => {
+	// 	const val = e.target.value;
+	// 	this.setState(
+	// 		{
+	// 			[e.target.name]: val
+	// 		},
+	// 		() => {
+	// 			if (val === '') {
+	// 				this.props.searchResults([]);
+	// 			} else {
+	// 				axios
+	// 					.get(
+	// 						`${this.state.apiUrl}/?key=${this.state.apiKey}&q=${this.state.searchText}
+	//           &image_type=photo&per_page=${this.state.amount}&safesearch=true`
+	// 					)
+	// 					.then(res => this.props.searchResults(res.data.hits))
+	// 					.catch(err => console.log(err));
+	// 			}
+	// 		}
+	// 	);
+	// };
 
+	// onAmountChange = (e, index, value) => {
+	// 	this.setState({ amount: e.target.value });
+	// };
+
+	search = e => {
+		const val = e.target.value;
 		this.setState(
 			{
 				[e.target.name]: val
@@ -33,11 +58,6 @@ class Search extends Component {
 			}
 		);
 	};
-
-	onAmountChange = (e, index, value) => {
-		this.setState({ amount: e.target.value });
-	};
-
 	render() {
 		return (
 			<div>
@@ -45,12 +65,12 @@ class Search extends Component {
 					placeholder="Enter search text"
 					name="searchText"
 					value={this.state.searchText}
-					onChange={this.onTextChange}
+					onChange={this.search}
 					fullWidth={true}
 				/>
 				<br />
 				<label htmlFor="amount">Amount: </label>
-				<Select name="amount" value={this.state.amount} onChange={this.onAmountChange}>
+				<Select name="amount" value={this.state.amount} onChange={this.search}>
 					<MenuItem value={5}>5</MenuItem>
 					<MenuItem value={10}>10</MenuItem>
 					<MenuItem value={15}>15</MenuItem>

@@ -72,7 +72,7 @@ function PictureSearch(props) {
 
 	React.useEffect(() => {
 		localStorage.setItem('savedImages', JSON.stringify(savedImages));
-	});
+	}, [savedImages]);
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
